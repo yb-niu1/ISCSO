@@ -12,14 +12,7 @@ function move = MotionDecode(motion)
     
     % Map the angle to its corresponding octant (0, 45, 90, 135 ...)
     octant = mod(round( 8 * angle / (2*pi) + 8 ),8) + 1;
-    moveArray = [1 0;
-                 1 1;
-                 0 1;
-                 -1 1;
-                 -1 0;
-                 -1 -1;
-                 0 -1;
-                 1 -1];
+
      % Map the octant to a move
      move = moveArray(octant,:);
 end
