@@ -11,14 +11,7 @@ function position=CreateRandomSolution(model)
     path = zeros(n,2);  % path initialization
     MaxIt = 100; % Maximum number of trial iterations before resetting the path
 
-    motions = [1 0;
-                 0.7071 0.7071;
-                 0 1;
-                 -0.7071 0.7071;
-                 -1 0;
-                 -0.7071 -0.7071;
-                 0 -1;
-                 0.7071 -0.7071];
+    motions = [];
              
     should_restart = true;
     
@@ -31,46 +24,7 @@ function position=CreateRandomSolution(model)
         position = zeros(n,2); % motion initialisation
         currentNode = startNode;
         for i=1:n
-            motion = motions(randi([1 length(motions)]),:);
-            invalidFlag = true;
-            it = 0;
-            while (invalidFlag && it < MaxIt)
-                nextMove = MotionDecode(motion);
-                nextNode = currentNode + nextMove;
-                invalidFlag = false;
-
-                % Limit the path to be within the map
-                % Out of x direction -> Move it back
-                if nextNode(1) > model.xmax
-                    motion = motions(5,:);
-                    invalidFlag = true;
-                    it = it + 1;
-                elseif nextNode(1) < model.xmin
-                    motion = motions(1,:);
-                    invalidFlag = true;
-                    it = it + 1;
-                    
-                % Out of y direction 
-                elseif nextNode(2) > model.ymax
-                    motion = motions(7,:);
-                    invalidFlag = true;
-                    it = it + 1;
-                elseif nextNode(2) < model.ymin
-                    motion = motions(3,:);
-                    invalidFlag = true;
-                    it = it + 1;
-                else
-                    % Check duplicate nodes within a path
-                    for j=1:length(path)
-                        if isequal(nextNode,path(j,:))
-                            motion = motions(randi([1 length(motions)]),:);
-                            invalidFlag = true;
-                            it = it + 1;
-                            break;
-                        end
-                    end 
-                end
-            end
+            
                
             % Restart the whole path
             if (it >= MaxIt)
