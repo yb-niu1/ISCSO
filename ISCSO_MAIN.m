@@ -36,7 +36,7 @@ end
 % Array to Hold Best Cost Values at Each Iteration
 BestCost=zeros(MaxIt,1);
 
-%% ICSO Main Loop
+%% ISCSO Main Loop
 
 
 %% Results
