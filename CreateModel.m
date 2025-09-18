@@ -16,14 +16,9 @@ function model=CreateModel()
     F1 = reshape(F1,length(y),length(x));  % Convert F to a matrix
     F1 = F1/sum(F1(:)); % Scale to the total of one
     
-    mu2 = [5 5];  % The second distribution/information
-    Sigma2 = MAP_SIZE*[0.1 0;0 0.1];
-    F2 = mvnpdf([X(:) Y(:)],mu2,Sigma2);
 
-    F2 = reshape(F2,length(y),length(x));  
-    F2 = F2/sum(F2(:));
     
-    Pmap = 0.5*(F1 + F2); % Scale the probability for two information sources about the target
+    Pmap = F1; % Scale the probability for two information sources about the target
     
     %% Settings
     % Map limits
@@ -58,4 +53,5 @@ function model=CreateModel()
     model.Y = Y;
     model.targetMoves = 10; % Must be divisible by the path length (e.g, mod(N,move)=0)
     model.targetDir = 'E';  % The target moves in East direction 
+
 end
